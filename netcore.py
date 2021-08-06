@@ -11,7 +11,6 @@ import shutil
 import tarfile
 import urllib.request
 import sys
-from pprint import pprint
 
 DOTNET_REPO_URL = "https://dotnet.microsoft.com"
 DOTNET_REPO_INDEX = f"{DOTNET_REPO_URL}/download/dotnet"
@@ -46,14 +45,14 @@ class DotNetManager:
             os.mkdir(DOTNET_STORE_TEMP_DIR)
 
     def __start_ui(self):
-        print(".NET Core Manager")
+        self.__menu_title(".NET Core Manager")
         self.__select_version()
         self.__select_package()
         self.__install_package()
 
     def __select_version(self):
         print("\n")
-        print("Select version:")
+        self.__menu_title("Select version:")
         for i, version in enumerate(self.versions):
             print(f"{i}. {version.version}")
 
@@ -68,7 +67,7 @@ class DotNetManager:
 
     def __select_package(self):
         print("\n")
-        print("Select package:")
+        self.__menu_title("Select package:")
         print("1. SDK")
         print("2. Runtime")
         print("0. Exit")
@@ -188,5 +187,10 @@ class DotNetManager:
 
         return []
 
+    @staticmethod
+    def __menu_title(title):
+        print("\n")
+        print(f"\33[1m\33[30m{title}\033[0m")
+        print("-" * len(title))
 
 dn_manager = DotNetManager()
