@@ -51,7 +51,6 @@ class DotNetManager:
         self.__install_package()
 
     def __select_version(self):
-        print("\n")
         self.__menu_title("Select version:")
         for i, version in enumerate(self.versions):
             print(f"{i}. {version.version}")
@@ -66,7 +65,6 @@ class DotNetManager:
             self.__select_version()
 
     def __select_package(self):
-        print("\n")
         self.__menu_title("Select package:")
         print("1. SDK")
         print("2. Runtime")
@@ -95,10 +93,7 @@ class DotNetManager:
         print("Downloading package...")
         print("Please wait...")
         url = self.__get_package_url()
-        pkg = urllib.request.urlretrieve(url, reporthook=self.__download_progress)
-        with open(package_path, "wb") as f:
-            f.write(pkg.read())
-        pkg.close()
+        urllib.request.urlretrieve(url, package_path, reporthook=self.__download_progress)
 
         print("\n")
         print("Extracting package...")
