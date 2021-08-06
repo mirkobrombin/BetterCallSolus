@@ -9,9 +9,7 @@ import re
 import pathlib
 import shutil
 import tarfile
-import requests
 import urllib.request
-import time
 import sys
 from pprint import pprint
 
