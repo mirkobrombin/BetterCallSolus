@@ -12,6 +12,9 @@ sed -i 's|/usr/local/bin|~/.local/bin|g' ~/.tmp/starship-install.sh
 echo "Starting installation..."
 bash ~/.tmp/starship-install.sh -y 
 
+echo "Removing installation script..."
+rm ~/.tmp/starship-install.sh
+
 echo "Adding to .zshrc"
 echo 'eval "$(~/.local/bin/starship init zsh)"' >> ~/.zshrc
 
