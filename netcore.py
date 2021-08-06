@@ -1,15 +1,18 @@
 # mirkobrombin <send@mirko.pm>
 # ------------------------------
 # Install .NET Core on Solus OS
+# License: MIT
 
 
 import os
+import re
 import pathlib
 import shutil
 import tarfile
 import requests
 import urllib.request
-import re
+import time
+import sys
 from pprint import pprint
 
 DOTNET_REPO_URL = "https://dotnet.microsoft.com"
@@ -95,9 +98,9 @@ class DotNetManager:
         print("Downloading package...")
         print("Please wait...")
         url = self.__get_package_url()
-        pkg = requests.get(url, allow_redirects=True)
+        pkg = urllib.request.urlretrieve(url, reporthook=self.__download_progress)
         with open(package_path, "wb") as f:
-            f.write(pkg.content)
+            f.write(pkg.read())
         pkg.close()
 
         print("\n")
@@ -133,6 +136,15 @@ class DotNetManager:
         print("Installation complete")
         print("Please restart your terminal")
         exit()
+
+    def __download_progress(self, count, block_size, total_size):
+        percent = int(count * block_size * 100 / total_size)
+        bar = "■" * int(percent / 2) + "□" * (50 - int(percent / 2))
+        sys.stdout.write(f"\r{bar} {percent}%")
+        sys.stdout.flush()
+        if percent == 100:
+            sys.stdout.write("\n")
+            sys.stdout.flush()
 
     def __get_package_url(self):
         url = f"{DOTNET_REPO_URL}{self.__selected_version.url}"
