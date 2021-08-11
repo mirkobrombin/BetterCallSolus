@@ -25,7 +25,7 @@ sudo mv $HOME/.tmp/docui/docui /usr/local/bin/docui
 sudo chmod +x /usr/local/bin/docui
 
 title "Removing temp files..."
-rm ~/.tmp/docui*
+rm -r ~/.tmp/docui*
 
 title "All done!"
 echo "Restart your session to start using docui."
